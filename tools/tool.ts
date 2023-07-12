@@ -2,7 +2,7 @@ import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 
 export type ToolInterface<P extends z.ZodType<any, any>, R extends z.ZodType<any, any>> = [
-  (params: z.infer<P>) => z.infer<R>,
+  (params: z.infer<P>) => Promise<z.infer<R>>,
   {
     name: string;
     description: string;
@@ -14,7 +14,7 @@ class Tool<P extends z.ZodType<any, any>, R extends z.ZodType<any, any>> {
   paramsSchema: P;
   name: string;
   description: string;
-  execute: (params: z.infer<P>) => z.infer<R>;
+  execute: (params: z.infer<P>) => Promise<z.infer<R>>;
   tool: ToolInterface<P, R>
 
   constructor(paramsSchema: P, name: string, description: string, execute: (params: z.infer<P>) => z.infer<R>) {
@@ -33,7 +33,7 @@ class Tool<P extends z.ZodType<any, any>, R extends z.ZodType<any, any>> {
     ];
   }
 
-  run(params: z.infer<P>): z.infer<R> {
+  run(params: z.infer<P>): Promise<z.infer<R>> {
     try {
       const validatedParams = this.paramsSchema.parse(params);
       return this.execute(validatedParams);
