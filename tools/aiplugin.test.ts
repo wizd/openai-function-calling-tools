@@ -7,7 +7,7 @@ it('should create a new AIPlugin', async () => {
     url: 'https://www.klarna.com/.well-known/ai-plugin.json'
   })
 
-  const result = klarna({})
+  const result = await klarna({})
 
   if (result.includes('Failed to execute script:')) {
     return;
