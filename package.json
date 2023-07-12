@@ -2,6 +2,7 @@
   "name": "openai-function-calling-tools",
   "version": "0.0.1",
   "description": "OpenAI Function calling tools",
+  "type": "module",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/cjs/index.d.ts",
